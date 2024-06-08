@@ -1,0 +1,12 @@
+[Unit]
+Description=MyCustomService: Liveness Probe Timer
+PartOf=mycustomservice.service
+After=mycustomservice.service
+
+[Timer]
+AccuracySec=1s
+# adjusto to your needs
+OnCalendar=*:0/10
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,8 @@
+[Unit]
+Description=MyCustomService: Recovery
+
+[Service]
+Type=oneshot
+ExecStart=-/usr/local/bin/mycustomservice-recovery.sh
+StandardOutput=journal
+StandardError=journal

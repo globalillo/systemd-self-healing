@@ -1,0 +1,13 @@
+[Unit]
+Description=MyCustomService: Liveness Probe
+OnFailure=mycustomservice-recovery.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/mycustomservice-healthcheck.sh
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
+WantedBy=mycustomservice.service

@@ -1,0 +1,23 @@
+[Unit]
+Description=MyCustomService description
+After=network.target
+OnFailure=mycustomservice-recovery.service
+Wants=mycustomservice-healthcheck.timer
+
+[Service]
+# forking or simple or ...
+Type=forking
+LimitNOFILE=65536
+# launch your own custom script to repair all known issues before starting mycustomservice and do not exit on failure
+ExecStartPre=-/usr/local/bin/mycustomservice-pre.sh
+ExecStart=/path/to/your/startup/mycustomservice start
+# wait for 5 minutes before starting mycustomservice-healthcheck.timer, or configure your own custom script to check the health of mycustomservice
+ExecStartPost=/usr/bin/sleep 5m
+# adjusto to your needs
+TimeoutStartSec=6m
+ExecStop=/usr/local/bin/mycustomservice stop
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
