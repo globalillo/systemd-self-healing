@@ -4,6 +4,20 @@ A self-healing approach for managing complex or poorly coded services using syst
 
 The goal is to ensure optimal and efficient service operation.
 
+## Flow chart
+
+```mermaid
+flowchart TD
+    User-->|starts|mycustomservice.service
+    User-->|enable|mycustomservice.service
+    mycustomservice.service-->|if failed|mycustomservice-recovery.service
+    mycustomservice.service-->|if succeeds|mycustomservice-healthcheck.timer
+    mycustomservice-healthcheck.timer-->|starts|mycustomservice-healthcheck.service
+    mycustomservice-healthcheck.service-->|runs|mycustomservice-healthcheck.sh
+    mycustomservice-healthcheck.service-->|if failed|mycustomservice-recovery.service
+    mycustomservice-recovery.service-->|runs|mycustomservice-recovery.sh
+```
+
 ## systemd units
 
 ### mycustomservice.service
