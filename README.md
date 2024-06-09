@@ -16,6 +16,7 @@ flowchart TD
     mycustomservice-healthcheck.service-->|runs|mycustomservice-healthcheck.sh
     mycustomservice-healthcheck.service-->|if failed|mycustomservice-recovery.service
     mycustomservice-recovery.service-->|runs|mycustomservice-recovery.sh
+    mycustomservice-recovery.sh-->|starts|mycustomservice.service
 ```
 
 ## systemd units
